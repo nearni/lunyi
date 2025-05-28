@@ -2,247 +2,577 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>論億有限公司</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+  />
   <style>
-    :root {
-      --primary: #ff6b6b;
-      --secondary: #ffa502;
-    }
-
+    /* --- 全局 & 重置 --- */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #fffdf8;
+    body,
+    html {
+      height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
       color: #333;
-      line-height: 1.6;
+      scroll-behavior: smooth;
     }
 
-    header {
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: bold;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
-    .container {
+    /* --- 導覽列 --- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 200px;
+      background: linear-gradient(180deg, #3b82f6, #2563eb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 2rem 1rem;
-      max-width: 1200px;
-      margin: auto;
+      color: white;
+      z-index: 1000;
     }
 
+    nav h1 {
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    nav a {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      width: 100%;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background-color: rgba(255 255 255 / 0.3);
+    }
+
+    /* --- 主內容區 --- */
+    main {
+      margin-left: 200px;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: #2563eb;
+      margin-bottom: 1rem;
+      border-bottom: 3px solid #3b82f6;
+      padding-bottom: 0.3rem;
+      max-width: max-content;
+    }
+
+    /* --- 首頁 Banner --- */
+    #home-banner {
+      background: url("https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1350&q=80")
+        center/cover no-repeat;
+      height: 300px;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    /* --- 商品展示 --- */
     .swiper {
-      padding-bottom: 2rem;
+      padding: 1rem 0 3rem 0;
     }
 
     .swiper-slide {
       background: white;
       border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      width: 280px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      width: 280px !important;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .swiper-slide:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.15);
     }
 
     .product-img {
-      height: 180px;
       width: 100%;
+      height: 180px;
       object-fit: cover;
+      border-bottom: 1px solid #ddd;
     }
 
-    .product-content {
+    .product-info {
       padding: 1rem;
-      flex: 1;
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
     .product-title {
+      font-weight: 700;
       font-size: 1.1rem;
-      font-weight: bold;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.4rem;
+      color: #1e40af;
     }
 
     .product-desc {
       font-size: 0.9rem;
       color: #555;
-      margin-bottom: 0.5rem;
-    }
-
-    .product-price {
-      color: var(--primary);
-      font-weight: bold;
+      flex-grow: 1;
       margin-bottom: 0.8rem;
     }
 
-    .add-btn {
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      color: white;
-      border: none;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: opacity 0.3s;
-    }
-
-    .add-btn:hover {
-      opacity: 0.85;
-    }
-
-    .contact {
-      background: #f9f9f9;
-      padding: 2rem 1rem;
-      border-top: 2px solid #eee;
-      margin-top: 3rem;
-    }
-
-    .contact h2 {
-      text-align: center;
+    .product-price {
+      font-weight: 700;
+      color: #ef4444;
+      font-size: 1.1rem;
       margin-bottom: 1rem;
     }
 
-    .contact form {
-      max-width: 500px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    .btn-add-cart {
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      color: white;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .contact input, .contact textarea {
-      padding: 0.7rem;
+    .btn-add-cart:hover {
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+    }
+
+    /* --- 購物車 --- */
+    #cart-list {
+      max-width: 700px;
+      margin-top: 1rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+      padding: 1rem 1.5rem;
+    }
+
+    #cart-list table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    #cart-list th,
+    #cart-list td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+    }
+
+    #cart-list th {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .btn-remove {
+      background: #ef4444;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      color: white;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-remove:hover {
+      opacity: 0.8;
+    }
+
+    #cart-empty {
+      text-align: center;
+      color: #666;
+      padding: 2rem 0;
+    }
+
+    /* --- 客服資訊 --- */
+    #contact {
+      max-width: 600px;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+      padding: 2rem 2.5rem;
+    }
+
+    #contact h3 {
+      margin-bottom: 1rem;
+      color: #2563eb;
+      font-weight: 700;
+    }
+
+    #contact form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #contact input,
+    #contact textarea {
+      margin-bottom: 1rem;
+      padding: 0.6rem 1rem;
       border: 1px solid #ccc;
       border-radius: 0.5rem;
       font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.3s ease;
     }
 
-    .contact button {
-      background: var(--primary);
+    #contact input:focus,
+    #contact textarea:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+
+    #contact button {
+      width: 120px;
+      align-self: flex-start;
+      background: #3b82f6;
       color: white;
       border: none;
-      padding: 0.7rem;
+      padding: 0.6rem 1rem;
+      font-weight: 700;
       border-radius: 0.5rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .contact button:hover {
-      opacity: 0.9;
+    #contact button:hover {
+      background: #2563eb;
+    }
+
+    /* --- 響應式 --- */
+    @media (max-width: 900px) {
+      nav {
+        width: 140px;
+      }
+
+      main {
+        margin-left: 140px;
+        padding: 1.5rem;
+      }
+
+      .swiper-slide {
+        width: 220px !important;
+      }
     }
 
     @media (max-width: 600px) {
+      nav {
+        position: static;
+        height: auto;
+        width: 100%;
+        flex-direction: row;
+        padding: 0.5rem 0;
+        justify-content: space-around;
+      }
+
+      nav h1 {
+        display: none;
+      }
+
+      nav a {
+        margin: 0;
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      main {
+        margin-left: 0;
+        padding: 1rem 1rem 3rem;
+      }
+
       .swiper-slide {
-        width: 80%;
+        width: 80% !important;
       }
     }
   </style>
 </head>
 <body>
+  <!-- 導覽列 -->
+  <nav>
+    <h1>SHOP</h1>
+    <a href="#home" class="nav-link active">首頁</a>
+    <a href="#products" class="nav-link">商品展示</a>
+    <a href="#cart" class="nav-link">購物車</a>
+    <a href="#contact" class="nav-link">客服資訊</a>
+  </nav>
 
-  <header>天天生活百貨</header>
+  <main>
+    <!-- 首頁 -->
+    <section id="home">
+      <div id="home-banner">歡迎來到論億日用品零售網</div>
+    </section>
 
-  <div class="container">
-    <h2 style="text-align:center;margin-bottom:1rem;">熱門商品</h2>
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <!-- 商品 1 -->
-        <div class="swiper-slide">
-          <img src="https://picsum.photos/300/200?random=1" alt="商品1" class="product-img">
-          <div class="product-content">
-            <div>
-              <div class="product-title">清潔劑</div>
-              <div class="product-desc">天然配方，除污無殘留。</div>
-              <div class="product-price">NT$199</div>
-            </div>
-            <button class="add-btn" onclick="addToCart('清潔劑')">加入購物車</button>
-          </div>
+    <!-- 商品展示 -->
+    <section id="products">
+      <h2>熱門商品</h2>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper" id="product-wrapper">
+          <!-- JS 會自動產生商品卡片 -->
         </div>
 
-        <!-- 商品 2 -->
-        <div class="swiper-slide">
-          <img src="https://picsum.photos/300/200?random=2" alt="商品2" class="product-img">
-          <div class="product-content">
-            <div>
-              <div class="product-title">收納箱</div>
-              <div class="product-desc">可堆疊設計，節省空間。</div>
-              <div class="product-price">NT$129</div>
-            </div>
-            <button class="add-btn" onclick="addToCart('收納箱')">加入購物車</button>
-          </div>
-        </div>
-
-        <!-- 商品 3 -->
-        <div class="swiper-slide">
-          <img src="https://picsum.photos/300/200?random=3" alt="商品3" class="product-img">
-          <div class="product-content">
-            <div>
-              <div class="product-title">抹布組</div>
-              <div class="product-desc">超細纖維，強效吸水。</div>
-              <div class="product-price">NT$89</div>
-            </div>
-            <button class="add-btn" onclick="addToCart('抹布組')">加入購物車</button>
-          </div>
-        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
       </div>
+    </section>
 
-      <!-- 控制項 -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </div>
+    <!-- 購物車 -->
+    <section id="cart">
+      <h2>購物車</h2>
+      <div id="cart-list">
+        <!-- JS 會動態產生購物車內容 -->
+      </div>
+    </section>
 
-  <!-- 聯絡我們 -->
-  <div class="contact">
-    <h2>聯絡我們</h2>
-    <form onsubmit="sendMessage(event)">
-      <input type="text" placeholder="您的姓名" required />
-      <input type="email" placeholder="電子信箱" required />
-      <textarea rows="4" placeholder="留言內容..." required></textarea>
-      <button type="submit">送出留言</button>
-    </form>
-  </div>
+    <!-- 客服資訊 -->
+    <section id="contact">
+      <h2>客服資訊</h2>
+      <h3>聯絡我們</h3>
+      <form id="contact-form">
+        <input type="text" name="name" placeholder="您的姓名" required />
+        <input type="email" name="email" placeholder="電子郵件" required />
+        <textarea name="message" rows="5" placeholder="請輸入您的訊息" required></textarea>
+        <button type="submit">送出訊息</button>
+      </form>
+    </section>
+  </main>
 
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
   <script>
-    const swiper = new Swiper('.mySwiper', {
-      slidesPerView: 'auto',
-      spaceBetween: 20,
-      loop: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+    // 商品資料
+    const products = [
+      {
+        id: 1,
+        title: "天然清潔劑",
+        desc: "環保無毒，適用各種表面清潔。",
+        price: 199,
+        img: "https://picsum.photos/300/200?random=11",
       },
+      {
+        id: 2,
+        title: "收納箱",
+        desc: "可堆疊設計，節省空間。",
+        price: 129,
+        img: "https://picsum.photos/300/200?random=12",
+      },
+      {
+        id: 3,
+        title: "超細纖維抹布",
+        desc: "強效吸水，清潔不留痕。",
+        price: 89,
+        img: "https://picsum.photos/300/200?random=13",
+      },
+      {
+        id: 4,
+        title: "廚房砧板",
+        desc: "抗菌材質，使用更安心。",
+        price: 249,
+        img: "https://picsum.photos/300/200?random=14",
+      },
+      {
+        id: 5,
+        title: "多功能掛勾",
+        desc: "強力吸附，無痕安裝。",
+        price: 59,
+        img: "https://picsum.photos/300/200?random=15",
+      },
+      {
+        id: 6,
+        title: "環保吸管組",
+        desc: "重複使用，減少塑料浪費。",
+        price: 129,
+        img: "https://picsum.photos/300/200?random=16",
+      },
+    ];
+
+    // 初始化 Swiper 輪播
+    const swiper = new Swiper(".mySwiper", {
+      slidesPerView: "auto",
+      spaceBetween: 20,
+      centeredSlides: false,
       pagination: {
-        el: '.swiper-pagination',
+        el: ".swiper-pagination",
         clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          centeredSlides: true,
+        },
+        600: {
+          slidesPerView: 2,
+        },
+        900: {
+          slidesPerView: 3,
+        },
       },
     });
 
-    function addToCart(product) {
-      alert(`${product} 已加入購物車！`);
+    // 動態產生商品卡片
+    const productWrapper = document.getElementById("product-wrapper");
+    function renderProducts() {
+      productWrapper.innerHTML = "";
+      products.forEach((p) => {
+        const slide = document.createElement("div");
+        slide.classList.add("swiper-slide");
+        slide.innerHTML = `
+          <img src="${p.img}" alt="${p.title}" class="product-img" />
+          <div class="product-info">
+            <div class="product-title">${p.title}</div>
+            <div class="product-desc">${p.desc}</div>
+            <div class="product-price">NT$${p.price}</div>
+            <button class="btn-add-cart" data-id="${p.id}">加入購物車</button>
+          </div>
+        `;
+        productWrapper.appendChild(slide);
+      });
+      swiper.update();
     }
 
-    function sendMessage(event) {
-      event.preventDefault();
-      alert("您的訊息已送出，我們會盡快與您聯繫！");
+    // 購物車管理
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // 更新購物車畫面
+    const cartList = document.getElementById("cart-list");
+    function renderCart() {
+      if (cart.length === 0) {
+        cartList.innerHTML = `<p id="cart-empty">購物車目前沒有商品。</p>`;
+        return;
+      }
+
+      let html = `<table>
+        <thead>
+          <tr>
+            <th>商品名稱</th>
+            <th>數量</th>
+            <th>價格</th>
+            <th>小計</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+      let total = 0;
+      cart.forEach((item) => {
+        const product = products.find((p) => p.id === item.id);
+        const subtotal = product.price * item.qty;
+        total += subtotal;
+        html += `<tr>
+          <td>${product.title}</td>
+          <td>${item.qty}</td>
+          <td>NT$${product.price}</td>
+          <td>NT$${subtotal}</td>
+          <td><button class="btn-remove" data-id="${item.id}">刪除</button></td>
+        </tr>`;
+      });
+
+      html += `<tr>
+        <td colspan="3" style="text-align:right; font-weight:bold;">總計</td>
+        <td colspan="2" style="font-weight:bold; color:#ef4444;">NT$${total}</td>
+      </tr>`;
+
+      html += "</tbody></table>";
+
+      cartList.innerHTML = html;
     }
+
+    // 加入購物車事件
+    productWrapper.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("btn-add-cart")) return;
+
+      const id = parseInt(e.target.dataset.id);
+      const index = cart.findIndex((item) => item.id === id);
+      if (index === -1) {
+        cart.push({ id, qty: 1 });
+      } else {
+        cart[index].qty++;
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+      alert("已加入購物車！");
+    });
+
+    // 購物車刪除事件
+    cartList.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("btn-remove")) return;
+
+      const id = parseInt(e.target.dataset.id);
+      cart = cart.filter((item) => item.id !== id);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    });
+
+    // 導覽列點擊加上 active 樣式
+    const navLinks = document.querySelectorAll("nav a.nav-link");
+    navLinks.forEach((link) =>
+      link.addEventListener("click", () => {
+        navLinks.forEach((l) => l.classList.remove("active"));
+        link.classList.add("active");
+      })
+    );
+
+    // 聯絡我們表單提交事件
+    const contactForm = document.getElementById("contact-form");
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("感謝您的訊息，我們會盡快回覆您！");
+      contactForm.reset();
+    });
+
+    // 初始化頁面
+    renderProducts();
+    renderCart();
   </script>
-<div>
-        <h3>聯絡資訊</h3>
+  <div>   
         <ul>
-          <li>論億有限公司 </li>
-          <li>  60732200 </li>
+          <li>瀛翰企業有限公司 </li>
+          <li>  60692848 </li>
         </ul>
       </div>
 </body>
