@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>論億有限公司</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff8f0;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff6b6b, #ffa502);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .feature-list {
+      display: flex;
+      overflow-x: auto;
+      padding: 1rem;
+      background: #ffeaa7;
+      gap: 1rem;
+      scroll-snap-type: x mandatory;
+    }
+
+    .feature-item {
+      flex: 0 0 auto;
+      background: linear-gradient(145deg, #74b9ff, #a29bfe);
+      color: white;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      font-size: 1rem;
+      white-space: nowrap;
+      scroll-snap-align: start;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .feature-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .feature-item {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    論億有限公司
+  </header>
+
+  <div class="feature-list">
+    <a href="cleaning.html" class="feature-item">
+      <div class="icon">🧼</div>
+      清潔用品
+    </a>
+    <a href="kitchen.html" class="feature-item">
+      <div class="icon">🍽️</div>
+      廚房收納
+    </a>
+    <a href="laundry.html" class="feature-item">
+      <div class="icon">🧺</div>
+      洗衣洗潔
+    </a>
+    <a href="eco.html" class="feature-item">
+      <div class="icon">🌱</div>
+      環保商品
+    </a>
+    <a href="bath.html" class="feature-item">
+      <div class="icon">🚿</div>
+      衛浴用品
+    </a>
+    <a href="covid.html" class="feature-item">
+      <div class="icon">😷</div>
+      防疫專區
+    </a>
+    <a href="promo.html" class="feature-item">
+      <div class="icon">💥</div>
+      促銷專區
+    </a>
+  </div>
+ <footer>
+    &copy; 論億有限公司 | 60732200
+  </footer>
+</body>
+</html>
 
